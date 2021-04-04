@@ -16,20 +16,26 @@ import com.source.excEnv.model.*;
 
 public class MenuState extends State {
 
+	private John Doe;
+	
 	@Override
 	public void init() {
+		Doe = new John(0, 0, 240, 50, 100, 50);
 	}
 
 	@Override
 	public void update(float delta) {
+		Doe.update();
 	}
 	
 	@Override
 	public void render(Graphics g) {
 		//DO NOT DELETE THIS LINE
 		Graphics2D g2D = (Graphics2D) g;
-		
 		g2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON));
+	
+		g2D.setColor(Color.RED);
+		Doe.render(g2D);
 	}
 
 	@Override
@@ -38,6 +44,7 @@ public class MenuState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent e) {
+//		Doe.keyPress(e);
 	}
 
 	@Override
