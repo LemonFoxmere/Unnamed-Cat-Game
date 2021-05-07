@@ -22,13 +22,15 @@ public class MenuState extends State {
 	public void init() {
 //		initialize menu state as needed
 		
-//		temporary code: automatically transition into gameplay state
-//		there will most likely be two types of game state, but there will be just one for now
 	}
 
 	@Override
 	public void update(float delta) {
 //		internal updates of menu state
+		
+//		temporary code: automatically transition into gameplay state
+//		there will most likely be two types of game state, but there will be just one for now
+		setCurrentState(new GameState());
 	}
 	
 	@Override

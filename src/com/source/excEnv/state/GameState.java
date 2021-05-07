@@ -1,27 +1,38 @@
 package com.source.excEnv.state;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import com.source.excEnv.main.GameMain;
+import com.source.excEnv.model.jumpingPlayer;
+
 public class GameState extends State {
 
+	private jumpingPlayer catto;
+	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		catto = new jumpingPlayer(240, 100, 50, 70, 0, 0, 2.8f, 1f);
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+		catto.update(GameMain.GAME_HEIGHT); // testing
+		catto.jumpVel = 2.8f;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		Graphics2D g2D = (Graphics2D) g;
+
+		g2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON));
 		
+		g2D.setColor(Color.RED);
+		catto.render(g2D);
 	}
 
 	@Override
@@ -32,20 +43,16 @@ public class GameState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		catto.onKeyPress(e);		
 	}
 
 	@Override
 	public void onKeyRelease(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		catto.onKeyRelease(e);
 	}
 
 	@Override
 	public void onMousePress(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
