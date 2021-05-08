@@ -1,13 +1,14 @@
 package com.source.excEnv.model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 
 import com.source.excEnv.main.GameMain;
 
-public class jumpingPlayer {
+public class JumpingPlayer extends RectModel{
 	public float velX, velY;
-	public float x, y, w, h;
 	public float screenWidth, screenHeight;
 	public float gravity = 0.01f;
 	public float jumpVel = 0;
@@ -16,14 +17,11 @@ public class jumpingPlayer {
 	public boolean moving = false; // if the control is off, start epsilon decay
 	public boolean ctrlL = false, ctrlR = false; // for solving key delays
 	
-	public jumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed) {
+	public JumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed) {
 		// initialize all fields
+		super(x,y,w,h);
 		this.velX = velX;
 		this.velY = velY;
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
 		this.jumpVel = jumpForce;
 		this.xSpeed = xSpeed;
 		// constants
@@ -31,7 +29,7 @@ public class jumpingPlayer {
 		screenHeight = GameMain.GAME_HEIGHT;
 	}
 
-	public void update(float collisionPos) { // takes in collision Y position
+	public void update() { // takes in collision Y position
 				
 		/*
 		 * __________
@@ -44,9 +42,9 @@ public class jumpingPlayer {
 		 */
 		
 		velY += gravity; // falling down
-
-		if(y > collisionPos-h && velY > 0) { // if it is falling down, and it hits the collision position
-			velY = -jumpVel; // make it jump back
+		
+		if(y > screenHeight-h && velY > 0) { // if it is falling down, and it hits the ground
+			jump();
 		} else if(y < 0) { // if it hits the ceiling
 			velY = -velY;
 		}
@@ -60,7 +58,18 @@ public class jumpingPlayer {
 			}
 		}
 		
-		// update velX
+		updateXPos();
+		
+		y += velY;
+		x += velX; // updated all position based on velocity
+	}
+
+	public void jump() {
+		velY = -jumpVel; // make it jump back
+	}
+
+	private void updateXPos() {
+		// update velX controls
 		if(ctrlL) {
 			velX = -1;
 		} else if(ctrlR) {
@@ -74,13 +83,13 @@ public class jumpingPlayer {
 		if(x > screenWidth + 10) {
 			x = 0-w;
 		}
-		
-		y += velY;
-		x += velX; // updated all position based on velocity
 	}
 	
-	public void render(Graphics2D g2D) {
+	@Override
+	public void render(Graphics2D g2D, Color c) {
+		g2D.setColor(c);
 		g2D.fillRect((int)x, (int)y, (int)w, (int)h);
+//		TODO: ADD CUSTOM RENDERING 
 	}
 	
 	public void onKeyPress(KeyEvent e) {

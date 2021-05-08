@@ -1,3 +1,14 @@
 Add help screen | not completed
 
-* add more as needed
+For Gameplay:
+* Extract jump method
+* Add platform
+* Add platform collision algorithm
+* Add platform moving algorithm
+	(The platform will always move down slowly, and if the player fell down, display game over)
+* Add game over sign
+* Add graphics
+* Add parallax
+
+Level Gameplay:
+Add level difficulties
