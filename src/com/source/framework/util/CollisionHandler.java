@@ -44,8 +44,20 @@ public class CollisionHandler {
 	 *    [1,0,0,0]]
 	 */        
 	
-	public static int[][] collided(RectModel m1, RectModel m2) {
-//		TODO: implement collision algorithm
-		return new int[][] {{0,0,0,0}, {0,0,0,0}};
-	}
+	public static boolean collided(RectModel m1, RectModel m2, float epsilon) {
+    // consider x case
+    float m1LeftX = m1.x;
+    float m1RightX = m1.x + m1.w;
+    float m2LeftX = m2.x;
+    float m2RightX = m2.x + m2.w;
+
+    if (!(m1LeftX > m2LeftX && m1LeftX < m2RightX) && !(m1RightX < m2RightX && m1RightX > m2LeftX)) return false;
+
+    // consider y case
+    float m1BottomY = m1.y + m1.h;
+    float m2TopY = m2.y;
+    float m2ThresholdY = m2.y + epsilon;
+    if (m1BottomY >= m2TopY && m1BottomY <= m2ThresholdY) return true;
+    return false;
+  }
 }
