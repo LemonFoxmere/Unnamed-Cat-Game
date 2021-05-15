@@ -8,15 +8,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import com.source.excEnv.main.GameMain;
-import com.source.excEnv.model.jumpingPlayer;
+import com.source.excEnv.model.JumpingPlayer;
 
 public class GameState extends State {
 
-	private jumpingPlayer catto;
+	private JumpingPlayer catto;
 	
 	@Override
 	public void init() {
-		catto = new jumpingPlayer(240, 100, 50, 70, 0, 0, 2.8f, 1f);
+		catto = new JumpingPlayer(240, 100, 50, 70, 0, 0, 2.8f, 1f);
 	}
 
 	@Override

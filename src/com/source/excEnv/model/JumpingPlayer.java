@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import com.source.excEnv.main.GameMain;
 
-public class jumpingPlayer {
+public class JumpingPlayer {
 	public float velX, velY;
 	public float x, y, w, h;
 	public float screenWidth, screenHeight;
@@ -16,7 +16,7 @@ public class jumpingPlayer {
 	public boolean moving = false; // if the control is off, start epsilon decay
 	public boolean ctrlL = false, ctrlR = false; // for solving key delays
 	
-	public jumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed) {
+	public JumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed) {
 		// initialize all fields
 		this.velX = velX;
 		this.velY = velY;
