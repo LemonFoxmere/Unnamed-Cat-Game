@@ -15,6 +15,7 @@ public class JumpingPlayer {
 	public float xSpeed = 1;
 	public boolean moving = false; // if the control is off, start epsilon decay
 	public boolean ctrlL = false, ctrlR = false; // for solving key delays
+	public boolean isDead = false;
 	
 	public JumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed) {
 		// initialize all fields
@@ -46,9 +47,7 @@ public class JumpingPlayer {
 		velY += gravity; // falling down
 
 		if(y > collisionPos-h && velY > 0) { // if it is falling down, and it hits the collision position
-			velY = -jumpVel; // make it jump back
-		} else if(y < 0) { // if it hits the ceiling
-			velY = -velY;
+			jump(); // make it jump back
 		}
 		
 		if(!moving) {
@@ -77,6 +76,14 @@ public class JumpingPlayer {
 		
 		y += velY;
 		x += velX; // updated all position based on velocity
+	}
+
+	public void jump() {
+		velY = -jumpVel;
+	}
+	
+	public void jump(float offset) {
+		velY = -jumpVel - offset;
 	}
 	
 	public void render(Graphics2D g2D) {

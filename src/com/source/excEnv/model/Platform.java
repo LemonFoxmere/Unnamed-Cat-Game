@@ -29,20 +29,20 @@ public class Platform {
 //		move platform down, and when below screen width, come back up
 		y += moveSpeed;
 		if(y > GameMain.GAME_HEIGHT + h) {
-			y = (float) (-h - (Math.random() * GameMain.GAME_HEIGHT)); // teleport to a randomized height
+			y = (float) (-h - 10 - (Math.random() * GameMain.GAME_HEIGHT )); // teleport to a randomized height
 			
 			// randomize platform types
-			// 5% slime 60% normal 10% lava 25% ice
+			// 10% slime 70% normal 5% lava 15% ice
 			double x = Math.random();
 			
-			if(x < 0.6) {
+			if(x < 0.7) {
 				iden = Identity.NORMAL;
 			} else if (x < 0.85) {
 				iden = Identity.ICE;
 			} else if (x < 0.95) {
-				iden = Identity.LAVA;
-			} else {
 				iden = Identity.SLIME;
+			} else {
+				iden = Identity.LAVA;
 			}
 		}
 	}
