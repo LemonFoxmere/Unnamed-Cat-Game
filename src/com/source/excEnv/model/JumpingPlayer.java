@@ -122,6 +122,8 @@ public class JumpingPlayer extends RectModel{
 	public void kill() { // when it dies
 		isDead = true;
 		
+		Resource.hard.stop();
+		
 		double x = Math.random();
 		if(!hasDied) {			
 			if(x < 0.2) {

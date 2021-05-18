@@ -41,7 +41,7 @@ public class GameStateHard extends State {
 	
 	@Override
 	public void init() {
-		catto = new JumpingPlayer(240, 150, 50, 50, 0, 0, 12, 1.1f, 20);
+		catto = new JumpingPlayer(240, 150, 50, 50, 0, 0, 12, 0.7f, 5);
 		menuBtn = new RestartBtn(GameMain.GAME_WIDTH/2-70, GameMain.GAME_HEIGHT/1.7f, 150, 51, false);
 		
 //		initilize platforms
@@ -88,7 +88,7 @@ public class GameStateHard extends State {
 		planetPanels.add(new ParallaxPanel(Resource.planet3, 0, 0.7f, true));
 		planetPanels.add(new ParallaxPanel(Resource.planet4, (float) (GameMain.GAME_HEIGHT/1.5), 0.7f, true));
 		
-		Resource.start.play();
+		Resource.hard.play();
 	}
 
 	@Override

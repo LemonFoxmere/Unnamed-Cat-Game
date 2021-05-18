@@ -32,7 +32,8 @@ public class Resource {
 	 * these are for medium quality playback that requires speed and no pausing. Usually sound effects or 
 	 * other short term music. Buffer will be almost instantanious, but usage will be limited.
 	 */
-	public static AudioClip jumpNorm, jumpSlime, jumpSnow, rocket, death, death1, death2, death3, death4, start;
+	public static AudioClip jumpNorm, jumpSlime, jumpSnow, rocket, death, death1, death2, death3, death4,
+	start, menu, hard;
 	
 	//load all files
 	public static void load() {
@@ -71,6 +72,8 @@ public class Resource {
 		death3 = loadSimpleSound("death3.wav");
 		death4 = loadSimpleSound("death4.wav");
 		start = loadSimpleSound("start.wav");
+		menu = loadSimpleSound("menu1.wav");
+		hard = loadSimpleSound("hard1.wav");
 	}
 	
 	//load sound

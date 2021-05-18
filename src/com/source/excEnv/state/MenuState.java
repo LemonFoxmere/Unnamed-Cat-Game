@@ -20,6 +20,7 @@ public class MenuState extends State {
 	
 	@Override
 	public void init() {
+		Resource.menu.loop();
 	}
 
 	@Override
@@ -50,15 +51,19 @@ public class MenuState extends State {
 		int code = e.getKeyCode();
 		switch(code) {
 			case KeyEvent.VK_1:
+				Resource.menu.stop();
 				setCurrentState(new GameStateEasy());
 				break;
 			case KeyEvent.VK_2:
+				Resource.menu.stop();
 				setCurrentState(new GameStateMedium());
 				break;
 			case KeyEvent.VK_3:
+				Resource.menu.stop();
 				setCurrentState(new GameStateHard());	
 				break;
 			case KeyEvent.VK_4:
+				Resource.menu.stop();
 				setCurrentState(new GameStateEndless());
 				break;
 		}
