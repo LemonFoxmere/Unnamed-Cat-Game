@@ -25,6 +25,11 @@ public class Platform extends RectModel{
 	
 	public void update() {
 //		move platform down, and when below screen width, come back up
+		update(0.7f,0.15f,0.10f);
+	}
+	
+	public void update(float a, float b, float c) { // for normal, ice, slime, lava
+//		move platform down, and when below screen width, come back up
 		y += moveSpeed;
 		if(y > GameMain.GAME_HEIGHT) {
 			y = (float) (-h - 10 - (Math.random() * GameMain.GAME_HEIGHT/1.5)); // teleport to a randomized height
@@ -33,11 +38,11 @@ public class Platform extends RectModel{
 			// 10% slime 70% normal 5% lava 15% ice
 			double x = Math.random();
 			
-			if(x < 0.7) {
+			if(x < a) {
 				iden = Identity.NORMAL;
-			} else if (x < 0.85) {
+			} else if (x < a+b) {
 				iden = Identity.ICE;
-			} else if (x < 0.95) {
+			} else if (x < a+b+c) {
 				iden = Identity.SLIME;
 			} else {
 				iden = Identity.LAVA;

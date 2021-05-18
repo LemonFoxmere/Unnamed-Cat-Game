@@ -40,6 +40,21 @@ public class JumpingPlayer extends RectModel{
 		xDecayEpsilon = xSpeed/2;
 	}
 	
+	public JumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed, float maxXSpeed) {
+		// initialize all fields
+		super(x,y,w,h);
+		this.velX = velX;
+		this.velY = velY;
+		this.jumpVel = jumpForce;
+		this.xSpeed = xSpeed;
+		// constants
+		screenWidth = GameMain.GAME_WIDTH;
+		screenHeight = GameMain.GAME_HEIGHT;
+		availRocket = 3;
+		xDecayEpsilon = xSpeed/2;
+		maxSpeed = maxXSpeed;
+	}
+	
 	public JumpingPlayer(float x, float y, float w, float h, float velX, float velY, float jumpForce, float xSpeed, int availRocket) {
 		// initialize all fields
 		super(x,y,w,h);

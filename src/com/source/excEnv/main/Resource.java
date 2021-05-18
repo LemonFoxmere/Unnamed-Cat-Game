@@ -17,8 +17,8 @@ import com.source.framework.util.AudioPlayer;
 
 public class Resource {
 	public static BufferedImage iconimage, platNormal, platLava, platCloud,
-	platSlime, bgM, fgM, playerLeft, playerRight, playerLeftR, playerRightR,
-	restartNorm, restartPressed, planet1, planet2;
+	platSlime, bgM, fgM, bgE, bgH, playerLeft, playerRight, playerLeftR, playerRightR,
+	restartNorm, restartPressed, planet1, planet2, planet3, planet4, cloud1, cloud2, bgMenu;
 	
 	/*
 	 * these are for high quality playback that requires pausing and repeating. Songs and commetary are advised
@@ -43,6 +43,8 @@ public class Resource {
 		platLava = loadImage("plat-lava.png");
 		platNormal = loadImage("plat-stone.png");
 		bgM = loadImage("bg-m.png");
+		bgE = loadImage("bg-e.png");
+		bgH = loadImage("bg-h.png");
 		fgM = loadImage("fg-m.png"); // particle effect
 		playerLeft = loadImage("player-left.png");
 		playerRight = loadImage("player-right.png");
@@ -52,6 +54,11 @@ public class Resource {
 		restartPressed = loadImage("restart2.png");
 		planet1 = loadImage("planet1.png");
 		planet2 = loadImage("planet2.png");
+		planet3 = loadImage("planet1-h.png");
+		planet4 = loadImage("planet2-h.png");
+		cloud1 = loadImage("cloud1.png");
+		cloud2 = loadImage("cloud2.png");
+		bgMenu = loadImage("bg-menu.png");
 		
 		System.out.println("[DEBUG] loading sounds...");
 		jumpNorm = loadSimpleSound("jump1.wav");

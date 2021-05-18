@@ -20,8 +20,6 @@ public class MenuState extends State {
 	
 	@Override
 	public void init() {
-//		initialize menu state as needed
-		
 	}
 
 	@Override
@@ -30,7 +28,6 @@ public class MenuState extends State {
 		
 //		temporary code: automatically transition into gameplay state
 //		there will most likely be two types of game state, but there will be just one for now
-		setCurrentState(new GameState());
 	}
 	
 	@Override
@@ -40,6 +37,7 @@ public class MenuState extends State {
 		g2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON));
 	
 //		rendering the UI
+		g2D.drawImage(Resource.bgMenu, 0, 0, null);
 	}
 
 	@Override
@@ -49,6 +47,21 @@ public class MenuState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent e) {
+		int code = e.getKeyCode();
+		switch(code) {
+			case KeyEvent.VK_1:
+				setCurrentState(new GameStateEasy());
+				break;
+			case KeyEvent.VK_2:
+				setCurrentState(new GameStateMedium());
+				break;
+			case KeyEvent.VK_3:
+				setCurrentState(new GameStateHard());	
+				break;
+			case KeyEvent.VK_4:
+				setCurrentState(new GameStateEndless());
+				break;
+		}
 	}
 
 	@Override
