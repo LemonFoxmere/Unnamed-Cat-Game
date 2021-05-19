@@ -123,6 +123,10 @@ public class JumpingPlayer extends RectModel{
 		isDead = true;
 		
 		Resource.hard.stop();
+		Resource.normal.stop();
+		Resource.easy.stop();
+		Resource.infinite.stop();
+		Resource.rocket.stop();
 		
 		double x = Math.random();
 		if(!hasDied) {			
@@ -220,16 +224,6 @@ public class JumpingPlayer extends RectModel{
 			ctrlR = true;
 			facingLeft = false;
 		}
-		
-		if(keycode == e.VK_SPACE) { // used rocket
-			if(currentCountDown <= 0 && availRocket > 0) {				
-				Resource.rocket.play();
-			}
-			if(availRocket > 0) {				
-				currentCountDown = rocketDuration;
-				availRocket --; 
-			}
-		}
 	}
 	
 	public void onKeyRelease(KeyEvent e) {
@@ -239,6 +233,16 @@ public class JumpingPlayer extends RectModel{
 			ctrlL = false;
 		} if(keycode == e.VK_RIGHT) {
 			ctrlR = false;
+		}
+		
+		if(keycode == e.VK_SPACE && !isDead) { // used rocket
+			if(currentCountDown <= 0 && availRocket > 0) {				
+				Resource.rocket.play();
+			}
+			if(availRocket > 0) {				
+				currentCountDown = rocketDuration;
+				availRocket --; 
+			}
 		}
 		
 //		only if both ctrl L and R are false, make moving false

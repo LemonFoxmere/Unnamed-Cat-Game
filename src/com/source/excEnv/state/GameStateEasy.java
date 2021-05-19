@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.annotation.Resources;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -25,6 +26,7 @@ import com.source.excEnv.model.Platform;
 import com.source.excEnv.model.Platform.Identity;
 import com.source.excEnv.model.RestartBtn;
 import com.source.framework.util.CollisionHandler;
+import com.source.framework.util.FontHandler;
 
 public class GameStateEasy extends State {
 
@@ -78,17 +80,11 @@ public class GameStateEasy extends State {
 		bgPanels.add(new ParallaxPanel(panelImg, 0, 0.5f, false));
 		bgPanels.add(new ParallaxPanel(panelImg, panelImg.getHeight(), 0.5f, false));
 		
-		panelImg = Resource.fgM;
-		effectPanel = new ArrayList<>();
-		effectPanel.add(new ParallaxPanel(panelImg, 0, 5f, false));
-		effectPanel.add(new ParallaxPanel(panelImg, panelImg.getHeight(), 5f, false));
-		effectPanel.add(new ParallaxPanel(panelImg, panelImg.getHeight()*2, 5f, false));
-		
 		planetPanels = new ArrayList<>();
 		planetPanels.add(new ParallaxPanel(Resource.cloud1, 0, 0.7f, true));
 		planetPanels.add(new ParallaxPanel(Resource.cloud2, (float) (GameMain.GAME_HEIGHT/1.5), 0.7f, true));
 		
-		Resource.start.play();
+		Resource.easy.loop();
 	}
 
 	@Override
@@ -198,13 +194,13 @@ public class GameStateEasy extends State {
 //		--------- ALL OVERLAYS
 		if(!(catto.isDead || catto.won)) {	
 			renderText(g2D);
-		} else if (catto.isDead){
-			
+		} else if (catto.isDead){			
 			// render overlay
 			g2D.setColor(new Color(255,0,0,125));
 			g2D.fillRect(0, 0, GameMain.GAME_WIDTH, GameMain.GAME_HEIGHT);
 		} else if (catto.won){
 			// render overlay
+			Resource.rocket.stop();
 			g2D.setColor(new Color(50,50,50,125));
 			g2D.fillRect(0, 0, GameMain.GAME_WIDTH, GameMain.GAME_HEIGHT);
 		}
@@ -221,8 +217,8 @@ public class GameStateEasy extends State {
 
 	private void renderDeathWinMsg(Graphics2D g2D) {
 		if(catto.isDead) { // death message
-			g2D.setColor(Color.BLACK);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setColor(Color.WHITE);
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Died!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -231,13 +227,13 @@ public class GameStateEasy extends State {
 			
 			String scoreText = "Score: " + (int)score + " / " + (int)winningScore; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(catto.won) { // death message
-			g2D.setColor(Color.BLACK);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setColor(Color.WHITE);
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Won!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -246,13 +242,13 @@ public class GameStateEasy extends State {
 			
 			String scoreText = "Score: " + (int)score; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(paused) {
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "Paused"; // paused
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -261,7 +257,7 @@ public class GameStateEasy extends State {
 			
 			String text2 = "Click anywhere or Press ESC to resume"; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 + 10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 20));
+			g2D.setFont(Resource.font20);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text2)/2;
 			g2D.drawString(text2, x, y);
@@ -270,7 +266,7 @@ public class GameStateEasy extends State {
 
 	private void renderText(Graphics2D g2D) {
 		g2D.setColor(Color.BLACK);
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 32));
+		g2D.setFont(Resource.font32);
 		FontMetrics fm = g2D.getFontMetrics();
 		String scoreText = "Score: " + (int)score + " / " + (int)winningScore;
 		int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
@@ -279,20 +275,20 @@ public class GameStateEasy extends State {
 		
 		String rocketText = "Rockets Left: " + catto.availRocket;
 		y = fm.getAscent()*2 + 10;
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		x = GameMain.GAME_WIDTH/2 - fm.stringWidth(rocketText)/2;
 		g2D.drawString(rocketText, x, y);
 		
 		String pauseText = "Press ESC To Pause";
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = 15;
 		g2D.drawString(pauseText, x, y);
 		
 		String fpsText = "FPS: " + fps + " / 125";
-		g2D.setFont(new Font("Minecraft", Font.BOLD, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = GameMain.GAME_WIDTH-fm.stringWidth(fpsText)-10;
@@ -301,9 +297,12 @@ public class GameStateEasy extends State {
 
 	@Override
 	public void onClick(MouseEvent e) {
+		if(paused) {
+			Resource.rocket.play();
+		}
 		paused = false;
 	}
-
+	
 	@Override
 	public void onKeyPress(KeyEvent e) {
 		catto.onKeyPress(e);	
@@ -314,6 +313,11 @@ public class GameStateEasy extends State {
 		catto.onKeyRelease(e);
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE && !catto.isDead) {
 			paused = !paused; // pause or unpause
+			if(paused) {
+				Resource.rocket.stop();
+			} else {
+				Resource.rocket.play();
+			}
 		}
 	}
 
@@ -326,12 +330,17 @@ public class GameStateEasy extends State {
 	public void onMouseRelease(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if(menuBtn.isReleased(e)) {
+
 			setCurrentState(new MenuState());
 			Resource.death1.stop();
 			Resource.death2.stop();
 			Resource.death3.stop();
 			Resource.death4.stop();
 			Resource.death.stop();
+			Resource.hard.stop();
+			Resource.normal.stop();
+			Resource.easy.stop();
+			Resource.infinite.stop();
 		};
 	}
 
@@ -340,5 +349,4 @@ public class GameStateEasy extends State {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

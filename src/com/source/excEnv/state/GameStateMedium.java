@@ -88,7 +88,7 @@ public class GameStateMedium extends State {
 		planetPanels.add(new ParallaxPanel(Resource.planet1, 0, 0.7f, true));
 		planetPanels.add(new ParallaxPanel(Resource.planet2, (float) (GameMain.GAME_HEIGHT/1.5), 0.7f, true));
 		
-		Resource.start.play();
+		Resource.normal.play();
 	}
 
 	@Override
@@ -222,7 +222,7 @@ public class GameStateMedium extends State {
 	private void renderDeathWinMsg(Graphics2D g2D) {
 		if(catto.isDead) { // death message
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Died!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -231,13 +231,13 @@ public class GameStateMedium extends State {
 			
 			String scoreText = "Score: " + (int)score + " / " + (int)winningScore; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(catto.won) { // death message
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Won!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -246,13 +246,13 @@ public class GameStateMedium extends State {
 			
 			String scoreText = "Score: " + (int)score; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(paused) {
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "Paused"; // paused
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -261,7 +261,7 @@ public class GameStateMedium extends State {
 			
 			String text2 = "Click anywhere or Press ESC to resume"; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 + 10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 20));
+			g2D.setFont(Resource.font20);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text2)/2;
 			g2D.drawString(text2, x, y);
@@ -270,7 +270,7 @@ public class GameStateMedium extends State {
 
 	private void renderText(Graphics2D g2D) {
 		g2D.setColor(Color.WHITE);
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 32));
+		g2D.setFont(Resource.font32);
 		FontMetrics fm = g2D.getFontMetrics();
 		String scoreText = "Score: " + (int)score + " / " + (int)winningScore;
 		int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
@@ -279,20 +279,20 @@ public class GameStateMedium extends State {
 		
 		String rocketText = "Rockets Left: " + catto.availRocket;
 		y = fm.getAscent()*2 + 10;
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		x = GameMain.GAME_WIDTH/2 - fm.stringWidth(rocketText)/2;
 		g2D.drawString(rocketText, x, y);
 		
 		String pauseText = "Press ESC To Pause";
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = 15;
 		g2D.drawString(pauseText, x, y);
 		
 		String fpsText = "FPS: " + fps + " / 125";
-		g2D.setFont(new Font("Minecraft", Font.BOLD, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = GameMain.GAME_WIDTH-fm.stringWidth(fpsText)-10;
@@ -301,6 +301,9 @@ public class GameStateMedium extends State {
 
 	@Override
 	public void onClick(MouseEvent e) {
+		if(paused) {
+			Resource.rocket.play();
+		}
 		paused = false;
 	}
 
@@ -314,6 +317,11 @@ public class GameStateMedium extends State {
 		catto.onKeyRelease(e);
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE && !catto.isDead) {
 			paused = !paused; // pause or unpause
+			if(paused) {
+				Resource.rocket.stop();
+			} else {
+				Resource.rocket.play();
+			}
 		}
 	}
 
@@ -326,12 +334,17 @@ public class GameStateMedium extends State {
 	public void onMouseRelease(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if(menuBtn.isReleased(e)) {
+			Resource.click.play();
 			setCurrentState(new MenuState());
 			Resource.death1.stop();
 			Resource.death2.stop();
 			Resource.death3.stop();
 			Resource.death4.stop();
 			Resource.death.stop();
+			Resource.hard.stop();
+			Resource.normal.stop();
+			Resource.easy.stop();
+			Resource.infinite.stop();
 		};
 	}
 

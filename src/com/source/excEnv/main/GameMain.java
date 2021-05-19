@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class GameMain {
 	
 	//variables
-	private static final String titleName = "Unnamed-Cat-Game";
+	private static final String titleName = "Unnamed-Cat-Game Beta V1.0";
 	
 	public static int GAME_WIDTH;
 	public static int GAME_HEIGHT;

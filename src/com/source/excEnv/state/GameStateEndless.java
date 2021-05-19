@@ -37,12 +37,13 @@ public class GameStateEndless extends State {
 	private float topMargin = 60;
 	private int winningScore = Integer.MAX_VALUE;
 	private boolean paused = false;
+	public static int highScore = 0;
 	int fps = 0;
 	
 	@Override
 	public void init() {
 		catto = new JumpingPlayer(240, 150, 50, 50, 0, 0, 12, 0.45f, 5);
-		menuBtn = new RestartBtn(GameMain.GAME_WIDTH/2-70, GameMain.GAME_HEIGHT/1.7f, 150, 51, false);
+		menuBtn = new RestartBtn(GameMain.GAME_WIDTH/2-70, GameMain.GAME_HEIGHT/1.6f, 150, 51, false);
 		
 //		initilize platforms
 		platforms = new ArrayList<>();
@@ -88,7 +89,7 @@ public class GameStateEndless extends State {
 		planetPanels.add(new ParallaxPanel(Resource.planet1, 0, 0.7f, true));
 		planetPanels.add(new ParallaxPanel(Resource.planet2, (float) (GameMain.GAME_HEIGHT/1.5), 0.7f, true));
 		
-		Resource.start.play();
+		Resource.infinite.loop();
 	}
 
 	@Override
@@ -150,6 +151,9 @@ public class GameStateEndless extends State {
 				p.y-=catto.velY;
 			}
 			score += -catto.velY/ 100f;
+			if((int) score > highScore) {
+				highScore = (int) score;
+			}
 			//update panel movements
 			for(ParallaxPanel p : bgPanels) {
 				p.moveDown(-catto.velY);
@@ -165,6 +169,9 @@ public class GameStateEndless extends State {
 		
 		if(!catto.started) {			
 			score += moveSpeed / 100f;
+		}
+		if((int) score > highScore) {
+			highScore = (int) score;
 		}
 		
 	}
@@ -222,7 +229,7 @@ public class GameStateEndless extends State {
 	private void renderDeathWinMsg(Graphics2D g2D) {
 		if(catto.isDead) { // death message
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Died!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -231,13 +238,20 @@ public class GameStateEndless extends State {
 			
 			String scoreText = "Score: " + (int)score; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
+			fm = g2D.getFontMetrics();
+			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
+			g2D.drawString(scoreText, x, y);
+
+			scoreText = "High Score: " + (int)highScore; // score
+			y = GameMain.GAME_HEIGHT/2 + fm.getAscent() + 40;
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(catto.won) { // death message
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "You Won!"; // died
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -246,13 +260,13 @@ public class GameStateEndless extends State {
 			
 			String scoreText = "Score: " + (int)score; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 +10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 28));
+			g2D.setFont(Resource.font28);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 			g2D.drawString(scoreText, x, y);
 		} else if(paused) {
 			g2D.setColor(Color.WHITE);
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 42));
+			g2D.setFont(Resource.font42);
 			FontMetrics fm = g2D.getFontMetrics();
 			String text = "Paused"; // paused
 			int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
@@ -261,7 +275,7 @@ public class GameStateEndless extends State {
 			
 			String text2 = "Click anywhere or Press ESC to resume"; // score
 			y = GameMain.GAME_HEIGHT/2 + fm.getAscent()/2 + 10;
-			g2D.setFont(new Font("Minecraft", Font.PLAIN, 20));
+			g2D.setFont(Resource.font20);
 			fm = g2D.getFontMetrics();
 			x = GameMain.GAME_WIDTH/2 - fm.stringWidth(text2)/2;
 			g2D.drawString(text2, x, y);
@@ -270,29 +284,29 @@ public class GameStateEndless extends State {
 
 	private void renderText(Graphics2D g2D) {
 		g2D.setColor(Color.WHITE);
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 32));
+		g2D.setFont(Resource.font32);
 		FontMetrics fm = g2D.getFontMetrics();
-		String scoreText = "Score: " + (int)score;
+		String scoreText = "Score: " + (int)score + " / " + (int)highScore;
 		int x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
 		int y = fm.getAscent() + 10;
 		g2D.drawString(scoreText, x, y);
 		
 		String rocketText = "Rockets Left: " + catto.availRocket;
 		y = fm.getAscent()*2 + 10;
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		x = GameMain.GAME_WIDTH/2 - fm.stringWidth(rocketText)/2;
 		g2D.drawString(rocketText, x, y);
 		
 		String pauseText = "Press ESC To Pause";
-		g2D.setFont(new Font("Minecraft", Font.PLAIN, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = 15;
 		g2D.drawString(pauseText, x, y);
 		
 		String fpsText = "FPS: " + fps + " / 125";
-		g2D.setFont(new Font("Minecraft", Font.BOLD, 16));
+		g2D.setFont(Resource.font16);
 		fm = g2D.getFontMetrics();
 		y = fm.getAscent()+15;
 		x = GameMain.GAME_WIDTH-fm.stringWidth(fpsText)-10;
@@ -301,6 +315,9 @@ public class GameStateEndless extends State {
 
 	@Override
 	public void onClick(MouseEvent e) {
+		if(paused) {
+			Resource.rocket.play();
+		}
 		paused = false;
 	}
 
@@ -314,6 +331,11 @@ public class GameStateEndless extends State {
 		catto.onKeyRelease(e);
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE && !catto.isDead) {
 			paused = !paused; // pause or unpause
+			if(paused) {
+				Resource.rocket.stop();
+			} else {
+				Resource.rocket.play();
+			}
 		}
 	}
 
@@ -326,12 +348,17 @@ public class GameStateEndless extends State {
 	public void onMouseRelease(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if(menuBtn.isReleased(e)) {
+			Resource.click.play();
 			setCurrentState(new MenuState());
 			Resource.death1.stop();
 			Resource.death2.stop();
 			Resource.death3.stop();
 			Resource.death4.stop();
 			Resource.death.stop();
+			Resource.hard.stop();
+			Resource.normal.stop();
+			Resource.easy.stop();
+			Resource.infinite.stop();
 		};
 	}
 
