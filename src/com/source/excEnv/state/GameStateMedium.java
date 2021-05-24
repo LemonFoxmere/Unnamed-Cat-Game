@@ -88,7 +88,7 @@ public class GameStateMedium extends State {
 		planetPanels.add(new ParallaxPanel(Resource.planet1, 0, 0.7f, true));
 		planetPanels.add(new ParallaxPanel(Resource.planet2, (float) (GameMain.GAME_HEIGHT/1.5), 0.7f, true));
 		
-		Resource.normal.play();
+		Resource.normal.loop();
 	}
 
 	@Override

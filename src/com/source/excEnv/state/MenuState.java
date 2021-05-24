@@ -65,11 +65,20 @@ public class MenuState extends State {
 		g2D.setColor(Color.BLACK);
 		g2D.drawString(scoreText, x, y);
 		
+		
 		g2D.setColor(new Color(231, 182, 103));
 		g2D.setStroke(new BasicStroke(5, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		g2D.drawRect(x-10, y-fm.getAscent()-10, fm.stringWidth(scoreText)+20, fm.getAscent()+25);
 		g2D.setColor(Color.BLACK);
 		g2D.drawRect(x-15, y-fm.getAscent()-12, fm.stringWidth(scoreText)+30, fm.getAscent()+30);
+		
+		scoreText = "Warning: Please Be Careful While Use Headphones in ENDLESS Mode!";
+		g2D.setColor(Color.BLACK);
+		g2D.setFont(Resource.font20);
+		fm = g2D.getFontMetrics();
+		x = GameMain.GAME_WIDTH/2 - fm.stringWidth(scoreText)/2;
+		y = fm.getAscent() + 165;
+		g2D.drawString(scoreText, x, y);
 		
 //		render all buttons
 		easyBtn.render(g2D, Resource.btn1, Resource.btn2);
@@ -102,13 +111,13 @@ public class MenuState extends State {
 			FontMetrics f = g2D.getFontMetrics();
 			String text = "Credits";
 			int x1 = GameMain.GAME_WIDTH/2 - fm.stringWidth(text)/2;
-			int y1 = fm.getAscent() + 60;
+			int y1 = fm.getAscent() + 80;
 			g2D.drawString(text, x1, y1);
 
 			g2D.setFont(Resource.font28);
 			g2D.drawString("Our Dev Team", 90, y1+35);
 			
-			y1 = fm.getAscent() + 90;
+			y1 = fm.getAscent() + 110;
 			g2D.setFont(Resource.font24);
 			f = g2D.getFontMetrics();
 			g2D.drawString("Justin Li (Game Logic & Framework Development)", 70, y1+35);
@@ -130,18 +139,20 @@ public class MenuState extends State {
 			g2D.drawString("Trance - 009 Sound System Dreamscape", 70, y1+35);
 			y1 += 35;
 			g2D.drawString("Bobby Cole - Trance Music for Racing Game", 70, y1+25);
+			y1 += 50;
+			g2D.drawString("Carro Whatsapp Full (Whatsapp Drip)", 70, y1);
 			
 			g2D.setFont(Resource.font16);
 			text = "Copyright (C) 2021  Justin Li, Ronald Lac, Joseph Sung, Brian Ni";
 			f = g2D.getFontMetrics();
 			x1 = GameMain.GAME_WIDTH/2 - f.stringWidth(text)/2;
-			y1 = fm.getAscent() + GameMain.GAME_HEIGHT-10;
+			y1 = fm.getAscent() + GameMain.GAME_HEIGHT-83;
 			g2D.drawString(text, x1, y1);
 			
 			text = "Press ESC to return to menu";
 			f = g2D.getFontMetrics();
 			x1 = GameMain.GAME_WIDTH/2 - f.stringWidth(text)/2;
-			y1 = fm.getAscent() + GameMain.GAME_HEIGHT-120;
+			y1 = fm.getAscent() + GameMain.GAME_HEIGHT-100;
 			g2D.drawString(text, x1, y1);
 		}
 		
